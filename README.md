@@ -1,8 +1,12 @@
 <a name="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
- 
-<h2 align="center">PBP Tools</h2>
+<div align="center">
+  <h2 align="center">PBP Tools</h2>
+
+  <a href="https://github.com/iDocta/bazan-desktop">
+    <img src="docs/img/screenshot.png" alt="Logo" height="320">
+  </a>
 
   <p align="center">
     Collection of C# classes to work with the <a href="https://www.psdevwiki.com/psp/PBP">PBP file format</a>.
@@ -33,11 +37,11 @@ Clone the repository and open the solution inside the `src` folder.
 
 Inside there are 3 projects.
 
-|Project name|Summary|
-|---|---|
-|`MichelMichels.PSP.PBP`| Class library that contains all the logic. |
-|`MichelMichels.PSP.PBPTests`| Contains all tests for the above library. |
-|`MichelMichels.PSP.PBP.Gui`| A demo WPF app to use the class library. |
+| Project name                 | Summary                                    |
+| ---------------------------- | ------------------------------------------ |
+| `MichelMichels.PSP.PBP`      | Class library that contains all the logic. |
+| `MichelMichels.PSP.PBPTests` | Contains all tests for the above library.  |
+| `MichelMichels.PSP.PBP.Gui`  | A demo WPF app to use the class library.   |
 
 > :warning: The WPF app is WIP.
 
