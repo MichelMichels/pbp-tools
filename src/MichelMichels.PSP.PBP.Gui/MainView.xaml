@@ -1,0 +1,73 @@
+﻿<Window
+    x:Class="MichelMichels.PSP.PBP.Gui.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MichelMichels.PSP.PBP.Gui"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PBP tools 0.1"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Padding" Value="8,0" />
+        </Style>
+    </Window.Resources>
+    <Border
+        Padding="16"
+        BorderBrush="Black"
+        BorderThickness="8">
+
+        <StackPanel>
+            <TextBlock
+                Margin="0,0,0,16"
+                Style="{StaticResource Title}"
+                Text="PBP tools" />
+
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="0,0,8,0">
+                    <TextBlock Margin="0,0,0,4" Text="Path of .PBP file" />
+                    <TextBox Width="400" Text="{Binding FilePath}" />
+                </StackPanel>
+
+                <Button
+                    VerticalAlignment="Bottom"
+                    Click="OpenFileDialog_Click"
+                    Content="..." />
+            </StackPanel>
+
+            <Separator Margin="0,16" />
+
+
+            <DataGrid
+                Height="200"
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding CurrentPbpFile.SubFiles}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding FileName}" Header="File" />
+                    <DataGridTextColumn Binding="{Binding Data.LongLength}" Header="Bytes">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Right" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+
+
+    </Border>
+</Window>
