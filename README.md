@@ -5,7 +5,7 @@
 <h2 align="center">PBP Tools</h2>
 
   <p align="center">
-    Collection of C# classes to work with the <a href="https://www.psdevwiki.com/ps3/Eboot.PBP">PBP file format</a>.
+    Collection of C# classes to work with the <a href="https://www.psdevwiki.com/psp/PBP">PBP file format</a>.
     <br />
     <br />
     <a href="https://github.com/MichelMichels/pbp-tools/issues/new?assignees=&labels=bug&title=">Report Bug</a>
