@@ -5,13 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MichelMichels.PSP.PBP.Gui"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="PBP tools 0.1"
-    Width="800"
-    Height="450"
+    Title="PBP tools"
+    Background="LightGray"
+    SizeToContent="WidthAndHeight"
     mc:Ignorable="d">
     <Window.Resources>
         <Style x:Key="Title" TargetType="TextBlock">
             <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
         </Style>
 
         <Style TargetType="TextBox">
@@ -25,7 +26,7 @@
     </Window.Resources>
     <Border
         Padding="16"
-        BorderBrush="Black"
+        BorderBrush="Gray"
         BorderThickness="8">
 
         <StackPanel>
@@ -34,40 +35,67 @@
                 Style="{StaticResource Title}"
                 Text="PBP tools" />
 
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Margin="0,0,8,0">
+                <StackPanel Grid.Column="0">
                     <TextBlock Margin="0,0,0,4" Text="Path of .PBP file" />
-                    <TextBox Width="400" Text="{Binding FilePath}" />
+                    <TextBox Text="{Binding FilePath}" />
                 </StackPanel>
 
                 <Button
+                    Grid.Column="2"
                     VerticalAlignment="Bottom"
                     Click="OpenFileDialog_Click"
                     Content="..." />
-            </StackPanel>
+            </Grid>
 
             <Separator Margin="0,16" />
 
+            <DockPanel>
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    GridLinesVisibility="None"
+                    ItemsSource="{Binding CurrentPbpFile.SubFiles}"
+                    SelectedItem="{Binding SelectedSubFile}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="120"
+                            Binding="{Binding FileName}"
+                            Header="File" />
+                        <DataGridTextColumn
+                            Width="80"
+                            Binding="{Binding Data.LongLength}"
+                            Header="Bytes">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-            <DataGrid
-                Height="200"
-                AutoGenerateColumns="False"
-                ItemsSource="{Binding CurrentPbpFile.SubFiles}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding FileName}" Header="File" />
-                    <DataGridTextColumn Binding="{Binding Data.LongLength}" Header="Bytes">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="TextAlignment" Value="Right" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+                <GroupBox
+                    Width="512"
+                    Height="256"
+                    Margin="16,0,0,0"
+                    Padding="8"
+                    Header="Detail">
+                    <Image MaxWidth="400" Source="{Binding SelectedSubFile.Data}" />
+                </GroupBox>
+            </DockPanel>
+
+            <TextBlock
+                Margin="0,16,0,0"
+                HorizontalAlignment="Right"
+                Foreground="Gray"
+                Text="Written by Michel Michels" />
         </StackPanel>
-
-
 
     </Border>
 </Window>

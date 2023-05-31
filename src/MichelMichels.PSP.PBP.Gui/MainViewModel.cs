@@ -14,6 +14,9 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string filePath = string.Empty;
 
+    [ObservableProperty]
+    private PbpSubFile? selectedSubFile;
+
     public MainViewModel(IPbpLoader<string> pbpFileLoader)
     {
         this.pbpFileLoader = pbpFileLoader ?? throw new ArgumentNullException(nameof(pbpFileLoader));
