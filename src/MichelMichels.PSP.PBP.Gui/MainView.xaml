@@ -5,9 +5,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MichelMichels.PSP.PBP.Gui"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:MichelMichels.PSP.PBP.Gui.ViewModels"
+    xmlns:views="clr-namespace:MichelMichels.PSP.PBP.Gui.Views"
     Title="PBP tools"
-    Background="LightGray"
-    SizeToContent="WidthAndHeight"
+    Width="1200"
+    Height="600"
+    d:DataContext="{d:DesignInstance local:MainViewModel}"
     mc:Ignorable="d">
     <Window.Resources>
         <Style x:Key="Title" TargetType="TextBlock">
@@ -24,49 +27,34 @@
             <Setter Property="Padding" Value="8,0" />
         </Style>
     </Window.Resources>
-    <Border
-        Padding="16"
-        BorderBrush="Gray"
-        BorderThickness="8">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <StackPanel>
-            <TextBlock
-                Margin="0,0,0,16"
-                Style="{StaticResource Title}"
-                Text="PBP tools" />
+        <Menu Grid.Row="0" IsMainMenu="True">
+            <MenuItem Header="File">
+                <MenuItem Click="OpenFileDialog_Click" Header="Open..." />
+            </MenuItem>
+        </Menu>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="16" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0">
-                    <TextBlock Margin="0,0,0,4" Text="Path of .PBP file" />
-                    <TextBox Text="{Binding FilePath}" />
-                </StackPanel>
-
-                <Button
-                    Grid.Column="2"
-                    VerticalAlignment="Bottom"
-                    Click="OpenFileDialog_Click"
-                    Content="..." />
-            </Grid>
-
-            <Separator Margin="0,16" />
-
+        <Border Grid.Row="1" Visibility="{Binding FilePath, Converter={StaticResource IsNotEmptyStringToVisible}}">
             <DockPanel>
                 <DataGrid
                     AutoGenerateColumns="False"
+                    CanUserResizeRows="False"
                     GridLinesVisibility="None"
+                    IsReadOnly="True"
                     ItemsSource="{Binding CurrentPbpFile.SubFiles}"
+                    RowHeaderWidth="0"
                     SelectedItem="{Binding SelectedSubFile}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="120"
                             Binding="{Binding FileName}"
-                            Header="File" />
+                            Header="Subfile" />
                         <DataGridTextColumn
                             Width="80"
                             Binding="{Binding Data.LongLength}"
@@ -80,22 +68,61 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <GroupBox
-                    Width="512"
-                    Height="256"
-                    Margin="16,0,0,0"
-                    Padding="8"
-                    Header="Detail">
-                    <Image MaxWidth="400" Source="{Binding SelectedSubFile.Data}" />
-                </GroupBox>
+                <Grid>
+                    <ContentControl Content="{Binding DetailViewModel}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type viewModels:ImageViewModel}">
+                                <views:PngView />
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding DetailViewModel, Converter={StaticResource IsNullToVisible}}">
+                        <TextBlock
+                            FontSize="16"
+                            Foreground="Gray"
+                            Text="Select a subfile." />
+                    </StackPanel>
+                </Grid>
+
             </DockPanel>
 
+        </Border>
+
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="{Binding FilePath, Converter={StaticResource IsEmptyStringToVisible}}">
             <TextBlock
-                Margin="0,16,0,0"
-                HorizontalAlignment="Right"
+                FontSize="16"
                 Foreground="Gray"
-                Text="Written by Michel Michels" />
+                Text="Open an .PBP file from menu." />
         </StackPanel>
 
-    </Border>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <ProgressBar
+                    Width="100"
+                    Height="16"
+                    IsIndeterminate="{Binding IsLoading}" />
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <TextBlock Text="{Binding FilePathStatus, FallbackValue='No file loaded.'}" />
+            </StatusBarItem>
+
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock>
+                    <Run Text="Made by" />
+                    <Hyperlink NavigateUri="https://github.com/MichelMichels" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Run Text="Michel Michels" />
+                    </Hyperlink>
+                </TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using MichelMichels.PSP.PBP.Services;
+﻿using MichelMichels.PSP.PBP.Gui.Services;
+using MichelMichels.PSP.PBP.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -39,6 +40,7 @@ namespace MichelMichels.PSP.PBP.Gui
             services.AddTransient<IPbpUnpacker<string>, PbpFileUnpacker>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<IFileSystemService, WindowsFileSystemService>();
+            services.AddSingleton<ILoadingService, LoadingService>();
         }
 
     }

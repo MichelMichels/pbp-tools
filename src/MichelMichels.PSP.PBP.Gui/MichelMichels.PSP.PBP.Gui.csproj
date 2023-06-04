@@ -20,4 +20,10 @@
     <ProjectReference Include="..\MichelMichels.PSP.Unpacking\MichelMichels.PSP.PBP.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\PngView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>
