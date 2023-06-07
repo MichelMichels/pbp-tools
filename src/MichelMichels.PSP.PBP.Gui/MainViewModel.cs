@@ -70,7 +70,7 @@ public partial class MainViewModel : ObservableObject
         {
             "ICON0.PNG" => new IconZeroViewModel(newValue),
             "PIC1.PNG" => new PicOneViewModel(newValue),
-            _ => null,
+            _ => new DefaultSubFileViewModel(newValue),
         };
     }
 
