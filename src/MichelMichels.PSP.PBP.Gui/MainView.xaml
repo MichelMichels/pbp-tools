@@ -38,6 +38,12 @@
             <MenuItem Header="File">
                 <MenuItem Click="OpenFileDialog_Click" Header="Open..." />
             </MenuItem>
+            <MenuItem Header="Actions">
+                <MenuItem
+                    Click="ExtractAll_Click"
+                    Header="Extract all..."
+                    IsEnabled="{Binding CanExtractAll}" />
+            </MenuItem>
         </Menu>
 
         <Border Grid.Row="1" Visibility="{Binding FilePath, Converter={StaticResource IsNotEmptyStringToVisible}}">
